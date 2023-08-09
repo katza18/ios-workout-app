@@ -41,7 +41,7 @@ struct WorkoutTemplateDetailView: View {
                         HStack {
                             Text("\(exercise.name)")
                             Spacer()
-                            Text("\(exercise.sets) x \(exercise.reps[0])")
+                            Text("\(exercise.sets) x \(exercise.expectedReps)")
                         }
                     }
                 } header: {

@@ -47,22 +47,25 @@ class DataController: ObservableObject {
     }
     
     //Use to add an exercise template
-    func addExercise(name: String, sets: Int, reps: Int, rest: Int, template: Bool, context: NSManagedObjectContext) -> Exercise {
-        //Create placeholder [Int]
-        var repsArray: [Int] = []
-        var weightArray: [Int] = []
-        for _ in 1...sets {
-            repsArray.append(reps)
-            weightArray.append(0)
-        }
-        
+    func addExercise(name: String, sets: String, expectedReps: String, rest: String, template: Bool, context: NSManagedObjectContext) -> Exercise {
         //Create exercise and store attributes
         let exercise = Exercise(context: context)
+        
+        //Create correct arrays if not a template
+        var newArray: [String] = []
+        if (!template) {
+            newArray = [String](repeating: "", count: Int(sets) ?? 1)
+            exercise.loggedReps = newArray
+            exercise.weight = newArray
+        } else {
+            exercise.loggedReps = [""]
+            exercise.weight = [""]
+        }
+        
         exercise.name = name
-        exercise.reps = repsArray
+        exercise.expectedReps = expectedReps
         exercise.rest = rest
         exercise.template = template
-        exercise.weight = weightArray
         exercise.sets = sets
         exercise.id = UUID()
         
@@ -72,24 +75,4 @@ class DataController: ObservableObject {
         //Return new exercise
         return exercise
     }
-    
-    //Used to log an exercise
-    func addExercise(name: String, reps: [Int], rest: Int, template: Bool, weight: [Int], context: NSManagedObjectContext) -> Exercise {
-        //Create exercise and store attributes
-        let exercise = Exercise(context: context)
-        exercise.name = name
-        exercise.reps = reps
-        exercise.rest = rest
-        exercise.template = template
-        exercise.weight = weight
-        exercise.sets = exercise.weight.count
-        exercise.id = UUID()
-        
-        //Save context
-        save(context: context)
-        
-        //Return new exercise
-        return exercise
-    }
-    
 }

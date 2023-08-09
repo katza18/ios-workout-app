@@ -15,7 +15,6 @@ struct WorkoutLogView: View {
     @State var workout: Workout?
     @State var oldExercises: [Exercise]
     @State private var loggedExercises: [Exercise] = []
-    @State private var newExercises: [Exercise] = []
     
     var body: some View {
         VStack {
@@ -31,18 +30,20 @@ struct WorkoutLogView: View {
                 }
             }
             List {
+                //TODO: Fix the list to update correctly; reps length is incorrect.
                 ForEach(loggedExercises.indices, id: \.self) { index in
                     //Section for each new exercise
                     Section {
-                        ForEach(loggedExercises[index].reps.indices, id: \.self) { repIndex in
+                        ForEach(loggedExercises[index].loggedReps.indices, id: \.self) { repIndex in
                             //For each set of the exercise, create a row
                             HStack {
                                 Text("Weight")
-                                TextField("\(oldExercises[index].weight[repIndex]) lbs", value: $loggedExercises[index].weight[repIndex], format: .number)
+                                TextField("\(loggedExercises[index].weight[0])", text: $loggedExercises[index].loggedReps[repIndex])
                                     .keyboardType(.numberPad)
-                                Text("x")
-                                TextField("\(oldExercises[index].reps[repIndex]) reps", value: $loggedExercises[index].reps[repIndex], format: .number)
+                                Text("lbs x")
+                                TextField("\(loggedExercises[index].expectedReps)", text: $loggedExercises[index].weight[repIndex])
                                     .keyboardType(.numberPad)
+                                Text("reps")
                             }
                         }
                     } header: {
@@ -82,7 +83,7 @@ struct WorkoutLogView: View {
         
         for oldExercise in oldExercises {
             //Create newExercise from template and add to array
-            let newExercise = DataController().addExercise(name: oldExercise.name, reps: oldExercise.reps, rest: oldExercise.rest, template: false, weight: oldExercise.weight, context: managedObjectContext)
+            let newExercise = DataController().addExercise(name: oldExercise.name, sets: oldExercise.sets, expectedReps: oldExercise.expectedReps, rest: oldExercise.rest, template: false, context: managedObjectContext)
             newExercises.append(newExercise)
         }
         

@@ -33,7 +33,7 @@ struct WorkoutTemplateFormView: View {
             }
             .onTapGesture {
                 //Add empty exercise to exercises
-                let exercise = DataController().addExercise(name: "", sets: 1, reps: 1, rest: 1, template: true, context: managedObjectContext)
+                let exercise = DataController().addExercise(name: "", sets: "", expectedReps: "", rest: "", template: true, context: managedObjectContext)
                 exercises.append(exercise)
             }
         }
@@ -59,11 +59,11 @@ struct WorkoutTemplateFormView: View {
                                 TextField("Exercise Name", text: exercise.name)
                             }
                             Section {
-                                TextField("Sets", value: exercise.sets, format: .number)
+                                TextField("Sets", text: exercise.sets)
                                     .keyboardType(.numberPad)
-                                TextField("Reps", value: exercise.reps[0], format: .number)
+                                TextField("Reps", text: exercise.expectedReps)
                                     .keyboardType(.numberPad)
-                                TextField("Rest", value: exercise.rest, format: .number)
+                                TextField("Rest", text: exercise.rest)
                                     .keyboardType(.numberPad)
                             }.padding(.leading, 30)
                         }
@@ -89,9 +89,9 @@ struct WorkoutTemplateFormView: View {
 //                }
 //                .scrollContentBackground(.hidden)
             }
-            .onAppear {
-                exercises = []
-            }
+//            .onAppear {
+//                exercises = []
+//            }
     }
     }
 }
