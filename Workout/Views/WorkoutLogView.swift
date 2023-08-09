@@ -10,12 +10,17 @@ import SwiftUI
 
 struct WorkoutLogView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.managedObjectContext) var managedObjectContext
     
-    @State var exercises: [Exercise]?
-    @State private var newExerciseWeight: String = ""
-    @State private var newExerciseReps: String = ""
+    @State var workout: Workout?
+    @State var oldExercises: [Exercise]?
+    @State private var loggedExercises: [Exercise] = []
+    @State private var newExercises: [Exercise] = []
     
     var body: some View {
+        
+        var newWorkout = DataController().addWorkout(name: workout?.name ?? "", exercises: [], desc: workout?.desc ?? "", template: false, context: managedObjectContext)
+        
         VStack {
             Text("Timer: 0:00")
                 .font(.subheadline)
@@ -29,30 +34,18 @@ struct WorkoutLogView: View {
                 }
             }
             List {
-                ForEach(exercises ?? []) { exercise in
-                    let sets = Int(exercise.sets)
-                    Section {
-                        ForEach(0..<(sets ?? 1), id: \.self) { _ in
-                            HStack {
-                                TextField("100 lbs", text: $newExerciseWeight)
-                                Spacer()
-                                Text(" x ")
-                                Spacer()
-                                TextField("\(exercise.reps)", text: $newExerciseReps)
-                            }
-                        }
-                        .listRowSeparator(.hidden, edges: .bottom)
-                    } header: {
-                        Text(exercise.name)
-                    }
-                }
+                
             }
             .listStyle(.plain)
             HStack {
                 Spacer()
                 Button("Done") {
-                    //Save workout
-                    //dismiss()
+                    //Add exercises array to workout and save context
+//                    workout.exercises = loggedExercises
+//                    DataController().save(context: managedObjectContext)
+                    
+                    //Dismiss the view
+                    dismiss()
                 }
                 Spacer()
                 Button("Cancel") {
@@ -64,6 +57,16 @@ struct WorkoutLogView: View {
         }
         .navigationTitle("Workout Name")
         .navigationBarBackButtonHidden()
+        .onAppear {
+//            ForEach(oldExercises ?? []) { exercise in
+//                let sets = Int(exercise.sets)
+//
+//                ForEach(0..<(sets ?? 1), id: \.self) { _ in
+//                    let newExercise = DataController().addExercise(name: exercise.name, sets: "1", reps: exercise.reps, rest: exercise.rest, template: false, weight: exercise.weight, context: managedObjectContext)
+//                    let _ = newExercises.append(newExercise)
+//                }
+//            }
+        }
     }
 }
 

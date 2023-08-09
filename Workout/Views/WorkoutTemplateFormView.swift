@@ -33,7 +33,7 @@ struct WorkoutTemplateFormView: View {
             }
             .onTapGesture {
                 //Add empty exercise to exercises
-                let exercise = DataController().addExercise(name: "", sets: "", reps: "", rest: "", context: managedObjectContext)
+                let exercise = DataController().addExercise(name: "", sets: 1, reps: 1, rest: 1, template: true, context: managedObjectContext)
                 exercises.append(exercise)
             }
         }
@@ -55,13 +55,15 @@ struct WorkoutTemplateFormView: View {
                     }
                     Section(header: Text("Exercises"), footer: addExerciseButton) {
                         ForEach($exercises, id: \.id) { exercise in
-                            TextField("Exercise Name", text: exercise.name)
+                            Group {
+                                TextField("Exercise Name", text: exercise.name)
+                            }
                             Section {
-                                TextField("Sets", text: exercise.sets)
+                                TextField("Sets", value: exercise.sets, format: .number)
                                     .keyboardType(.numberPad)
-                                TextField("Reps", text: exercise.reps)
+                                TextField("Reps", value: exercise.reps[0], format: .number)
                                     .keyboardType(.numberPad)
-                                TextField("Rest", text: exercise.rest)
+                                TextField("Rest", value: exercise.rest, format: .number)
                                     .keyboardType(.numberPad)
                             }.padding(.leading, 30)
                         }
@@ -75,7 +77,8 @@ struct WorkoutTemplateFormView: View {
                     .foregroundColor(.black)
                     Spacer()
                     Button("Submit"){
-                        DataController().addWorkout(name: name, exercises: exercises, desc: desc, context: managedObjectContext)
+                        //THIS SAVES CONTEXT FOR EXERCISES TOO
+                        let _ = DataController().addWorkout(name: name, exercises: exercises, desc: desc, template: true, context: managedObjectContext)
                         
                         dismiss()
                     }

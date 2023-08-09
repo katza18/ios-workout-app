@@ -18,10 +18,12 @@ extension Exercise {
 
     @NSManaged public var name: String
     @NSManaged public var id: UUID
-    @NSManaged public var sets: String
-    @NSManaged public var reps: String
-    @NSManaged public var rest: String
-    @NSManaged public var workout: Workout?
+    @NSManaged public var reps: [Int] //Reps of this exercise for each set
+    @NSManaged public var rest: Int //Rest between sets of this exercise in seconds
+    @NSManaged public var sets: Int
+    @NSManaged public var weight: [Int] //Weight stored for this exercise for each set
+    @NSManaged public var template: Bool //Flag indicating whether this is the template for an exercise or a logged one
+    @NSManaged public var workout: Workout? //The workout that this exercise belongs to
 
 }
 

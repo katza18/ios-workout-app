@@ -9,29 +9,39 @@ import SwiftUI
 
 struct WorkoutTemplateDetailView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.managedObjectContext) var managedObjectContext
     
-    @State var workoutName: String?
-    @State var workoutDesc: String?
+    @State var workout: Workout?
     @State var exercises: [Exercise]?
     
     var body: some View {
+        //Unpack exercises array, originally an NSSet
+        let exercises = workout?.exercises?.allObjects as? [Exercise]
+        
         VStack {
-            Text(workoutName ?? "Error loading name.")
+            //Workout Name Header
+            Text(workout?.name ?? "Error loading name.")
                 .font(.largeTitle)
             Spacer()
 //            Text("Description")
 //                .multilineTextAlignment(.center)
 //                .font(.headline)
-            Text(workoutDesc ?? "Sample description.")
+            
+            //Workout description text
+            Text(workout?.desc ?? "Sample description.")
                 .font(.subheadline)
             Spacer()
+            
+            //List of exercises
             List {
+                //Section for exercises with header "exercises"
                 Section {
+                    //Line for each exercise and details
                     ForEach(exercises ?? [], id: \.self) { exercise in
                         HStack {
                             Text("\(exercise.name)")
                             Spacer()
-                            Text("\(exercise.sets) x \(exercise.reps)")
+                            Text("\(exercise.sets) x \(exercise.reps[0])")
                         }
                     }
                 } header: {
@@ -39,10 +49,12 @@ struct WorkoutTemplateDetailView: View {
                 }
             }
             Spacer()
+            
+            //End screen buttons
             HStack {
                 Spacer()
                 NavigationLink {
-                    WorkoutLogView(exercises: exercises ?? [])
+                    WorkoutLogView(workout: workout, oldExercises: exercises ?? [])
                 } label: {
                     Text("Start")
                 }

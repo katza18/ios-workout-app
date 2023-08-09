@@ -33,26 +33,62 @@ class DataController: ObservableObject {
         try? context.save()
     }
     
-    func addWorkout(name: String, exercises: [Exercise], desc: String, context: NSManagedObjectContext) {
+    func addWorkout(name: String, exercises: [Exercise], desc: String, template: Bool, context: NSManagedObjectContext) -> Workout {
         let workout = Workout(context: context)
         workout.id = UUID()
         workout.name = name
         workout.desc = desc
+        workout.template = template
         workout.addToExercises(NSSet(array: exercises))
         
         save(context: context)
+        
+        return workout
     }
     
-    func addExercise(name: String, sets: String, reps: String, rest: String, context: NSManagedObjectContext) -> Exercise {
+    //Use to add an exercise template
+    func addExercise(name: String, sets: Int, reps: Int, rest: Int, template: Bool, context: NSManagedObjectContext) -> Exercise {
+        //Create placeholder [Int]
+        var repsArray: [Int] = []
+        var weightArray: [Int] = []
+        for _ in 1...sets {
+            repsArray.append(reps)
+            weightArray.append(0)
+        }
+        
+        //Create exercise and store attributes
         let exercise = Exercise(context: context)
         exercise.name = name
-        exercise.sets = sets
-        exercise.reps = reps
+        exercise.reps = repsArray
         exercise.rest = rest
+        exercise.template = template
+        exercise.weight = weightArray
+        exercise.sets = sets
         exercise.id = UUID()
         
+        //Save context
         save(context: context)
         
+        //Return new exercise
+        return exercise
+    }
+    
+    //Used to log an exercise
+    func addExercise(name: String, reps: [Int], rest: Int, template: Bool, weight: [Int], context: NSManagedObjectContext) -> Exercise {
+        //Create exercise and store attributes
+        let exercise = Exercise(context: context)
+        exercise.name = name
+        exercise.reps = reps
+        exercise.rest = rest
+        exercise.template = template
+        exercise.weight = weight
+        exercise.sets = exercise.weight.count
+        exercise.id = UUID()
+        
+        //Save context
+        save(context: context)
+        
+        //Return new exercise
         return exercise
     }
     

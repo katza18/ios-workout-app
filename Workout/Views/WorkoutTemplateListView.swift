@@ -18,9 +18,8 @@ struct WorkoutTemplateListView: View {
         List {
             Section{
                 ForEach(workouts, id: \.id) { workout in
-                    let exercises = workout.exercises?.allObjects as? [Exercise]
                     NavigationLink {
-                        WorkoutTemplateDetailView(workoutName: workout.name, workoutDesc: workout.desc, exercises: exercises ?? [])
+                        WorkoutTemplateDetailView(workout: workout)
                     } label: {
                         WorkoutTemplateRowView(workoutName: workout.name ?? "Error loading workout name.", workoutDesc: workout.desc ?? "Error loading workout description")
                     }
