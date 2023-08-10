@@ -7,6 +7,7 @@
 
 
 import SwiftUI
+import CoreData
 
 struct WorkoutLogView: View {
     @Environment(\.dismiss) private var dismiss
@@ -29,21 +30,32 @@ struct WorkoutLogView: View {
                     
                 }
             }
+            //List of exercises
             List {
-                //TODO: Fix the list to update correctly; reps length is incorrect.
-                ForEach(loggedExercises, id: \.id) { exercise in
-                    //Section for each new exercise
+                ForEach($loggedExercises, id: \.id) { $exercise in
                     Section {
-                        ForEach(exercise.loggedReps.indices, id: \.self) { index in
-                            //For each set of the exercise, create a row
-                            ExerciseLogTextView(weight: exercise.weight[index], reps: exercise.loggedReps[index])
+                        ForEach(exercise.weight.indices) { index in
+                            let weightBinding = Binding(get: { exercise.weight[index] }, set: { newValue in
+                                exercise.weight[index] = newValue
+                                DataController().save(context: managedObjectContext)
+                            })
+                            let repsBinding = Binding(get: { exercise.loggedReps[index] }, set: { newValue in
+                                exercise.loggedReps[index] = newValue
+                                DataController().save(context: managedObjectContext)
+                            })
+                            
+                            HStack {
+                                TextField("\(exercise.weight[index])", text: weightBinding)
+                                Text("lbs x")
+                                TextField("\(exercise.expectedReps)", text: repsBinding)
+                                Text("reps")
+                            }.listRowSeparator(.hidden)
                         }
                     } header: {
                         Text(exercise.name)
                     } //TODO: Add footer for plus/minus buttons
                 }
             }
-//            .listStyle(.plain)
             HStack {
                 Spacer()
                 Button("Done") {

@@ -47,7 +47,7 @@ struct WorkoutTemplateDetailView: View {
                             Text("\(exercise.name)")
                             Section {
                                 ForEach(exercise.weight.indices, id: \.self) { index in
-                                    Text("\(exercise.weight[index]) x \(exercise.loggedReps[index])")
+                                    Text("\(exercise.weight[index]) lbs x \(exercise.loggedReps[index]) reps")
                                 }
                             }.padding(.leading, 30)
                         }
