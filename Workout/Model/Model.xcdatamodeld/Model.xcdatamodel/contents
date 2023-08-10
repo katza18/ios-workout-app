@@ -16,6 +16,6 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="template" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <relationship name="exercises" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Exercise" inverseName="workout" inverseEntity="Exercise"/>
+        <relationship name="exercises" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Exercise" inverseName="workout" inverseEntity="Exercise"/>
     </entity>
 </model>

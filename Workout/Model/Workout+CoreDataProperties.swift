@@ -20,7 +20,7 @@ extension Workout {
     @NSManaged public var id: UUID?
     @NSManaged public var name: String?
     @NSManaged public var template: Bool
-    @NSManaged public var exercises: NSSet?
+    @NSManaged public var exercises: NSMutableOrderedSet?
 
 }
 
@@ -34,10 +34,10 @@ extension Workout {
     @NSManaged public func removeFromExercises(_ value: Exercise)
 
     @objc(addExercises:)
-    @NSManaged public func addToExercises(_ values: NSSet)
+    @NSManaged public func addToExercises(_ values: NSMutableOrderedSet)
 
     @objc(removeExercises:)
-    @NSManaged public func removeFromExercises(_ values: NSSet)
+    @NSManaged public func removeFromExercises(_ values: NSMutableOrderedSet)
 
 }
 

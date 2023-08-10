@@ -39,7 +39,7 @@ class DataController: ObservableObject {
         workout.name = name
         workout.desc = desc
         workout.template = template
-        workout.addToExercises(NSSet(array: exercises))
+        workout.addToExercises(NSMutableOrderedSet(array: exercises))
         
         save(context: context)
         

@@ -16,7 +16,7 @@ struct WorkoutTemplateDetailView: View {
     
     var body: some View {
         //Unpack exercises array, originally an NSSet
-        let exercises = workout?.exercises?.allObjects as? [Exercise]
+        let exercises = workout?.exercises?.array as? [Exercise]
         
         VStack {
             //Workout Name Header

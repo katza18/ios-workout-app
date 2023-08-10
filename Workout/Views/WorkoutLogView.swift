@@ -38,10 +38,10 @@ struct WorkoutLogView: View {
                             //For each set of the exercise, create a row
                             HStack {
                                 Text("Weight")
-                                TextField("\(loggedExercises[index].weight[0])", text: $loggedExercises[index].loggedReps[repIndex])
+                                TextField("\(loggedExercises[index].weight[repIndex])", text: $loggedExercises[index].weight[repIndex])
                                     .keyboardType(.numberPad)
                                 Text("lbs x")
-                                TextField("\(loggedExercises[index].expectedReps)", text: $loggedExercises[index].weight[repIndex])
+                                TextField("\(loggedExercises[index].expectedReps)", text: $loggedExercises[index].loggedReps[repIndex])
                                     .keyboardType(.numberPad)
                                 Text("reps")
                             }
