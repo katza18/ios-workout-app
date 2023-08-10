@@ -23,9 +23,6 @@ struct WorkoutTemplateDetailView: View {
             Text(workout?.name ?? "Error loading name.")
                 .font(.largeTitle)
             Spacer()
-//            Text("Description")
-//                .multilineTextAlignment(.center)
-//                .font(.headline)
             
             //Workout description text
             Text(workout?.desc ?? "Sample description.")
@@ -37,11 +34,22 @@ struct WorkoutTemplateDetailView: View {
                 //Section for exercises with header "exercises"
                 Section {
                     //Line for each exercise and details
-                    ForEach(exercises ?? [], id: \.self) { exercise in
-                        HStack {
+                    if workout?.template ?? true {
+                        ForEach(exercises ?? []) { exercise in
+                            HStack {
+                                Text("\(exercise.name)")
+                                Spacer()
+                                Text("\(exercise.sets) x \(exercise.expectedReps)")
+                            }
+                        }
+                    } else {
+                        ForEach(exercises ?? []) { exercise in
                             Text("\(exercise.name)")
-                            Spacer()
-                            Text("\(exercise.sets) x \(exercise.expectedReps)")
+                            Section {
+                                ForEach(exercise.weight.indices, id: \.self) { index in
+                                    Text("\(exercise.weight[index]) x \(exercise.loggedReps[index])")
+                                }
+                            }.padding(.leading, 30)
                         }
                     }
                 } header: {
