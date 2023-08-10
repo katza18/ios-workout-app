@@ -59,12 +59,15 @@ struct WorkoutTemplateFormView: View {
                                 TextField("Exercise Name", text: exercise.name)
                             }
                             Section {
-                                TextField("Sets", text: exercise.sets)
-                                    .keyboardType(.numberPad)
-                                TextField("Reps", text: exercise.expectedReps)
-                                    .keyboardType(.numberPad)
-                                TextField("Rest", text: exercise.rest)
-                                    .keyboardType(.numberPad)
+                                HStack {
+                                    TextField("Sets", text: exercise.sets)
+                                }
+                                HStack {
+                                    TextField("Reps", text: exercise.expectedReps)
+                                }
+                                HStack {
+                                    TextField("Rest", text: exercise.rest)
+                                }
                             }.padding(.leading, 30)
                         }
                     }

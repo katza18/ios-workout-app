@@ -31,27 +31,19 @@ struct WorkoutLogView: View {
             }
             List {
                 //TODO: Fix the list to update correctly; reps length is incorrect.
-                ForEach(loggedExercises.indices, id: \.self) { index in
+                ForEach(loggedExercises, id: \.id) { exercise in
                     //Section for each new exercise
                     Section {
-                        ForEach(loggedExercises[index].loggedReps.indices, id: \.self) { repIndex in
+                        ForEach(exercise.loggedReps.indices, id: \.self) { index in
                             //For each set of the exercise, create a row
-                            HStack {
-                                Text("Weight")
-                                TextField("\(loggedExercises[index].weight[repIndex])", text: $loggedExercises[index].weight[repIndex])
-                                    .keyboardType(.numberPad)
-                                Text("lbs x")
-                                TextField("\(loggedExercises[index].expectedReps)", text: $loggedExercises[index].loggedReps[repIndex])
-                                    .keyboardType(.numberPad)
-                                Text("reps")
-                            }
+                            ExerciseLogTextView(weight: exercise.weight[index], reps: exercise.loggedReps[index])
                         }
                     } header: {
-                        Text(loggedExercises[index].name)
+                        Text(exercise.name)
                     } //TODO: Add footer for plus/minus buttons
                 }
             }
-            .listStyle(.plain)
+//            .listStyle(.plain)
             HStack {
                 Spacer()
                 Button("Done") {
@@ -69,7 +61,7 @@ struct WorkoutLogView: View {
             }
             Spacer()
         }
-        .navigationTitle("Workout Name")
+        .navigationTitle(workout?.name ?? "Error loading name.")
         .navigationBarBackButtonHidden()
         .onAppear {
             //Create the logged exercises when the view renders

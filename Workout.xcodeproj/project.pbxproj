@@ -11,6 +11,7 @@
 		4829E0672A805DA4002014B0 /* Workout+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4829E0632A805DA4002014B0 /* Workout+CoreDataProperties.swift */; };
 		4829E0682A805DA4002014B0 /* Exercise+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4829E0642A805DA4002014B0 /* Exercise+CoreDataClass.swift */; };
 		4829E06D2A805E34002014B0 /* Exercise+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4829E06B2A805E34002014B0 /* Exercise+CoreDataProperties.swift */; };
+		485E19712A84825000957981 /* ExerciseLogTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485E19702A84825000957981 /* ExerciseLogTextFieldView.swift */; };
 		48CA0A1F2A7AF34000049840 /* WorkoutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CA0A1E2A7AF34000049840 /* WorkoutApp.swift */; };
 		48CA0A212A7AF34000049840 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CA0A202A7AF34000049840 /* ContentView.swift */; };
 		48CA0A232A7AF34200049840 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48CA0A222A7AF34200049840 /* Assets.xcassets */; };
@@ -46,6 +47,7 @@
 		4829E0632A805DA4002014B0 /* Workout+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Workout+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4829E0642A805DA4002014B0 /* Exercise+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercise+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4829E06B2A805E34002014B0 /* Exercise+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Exercise+CoreDataProperties.swift"; path = "../Exercise+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		485E19702A84825000957981 /* ExerciseLogTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseLogTextFieldView.swift; sourceTree = "<group>"; };
 		48CA0A1B2A7AF34000049840 /* Workout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Workout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		48CA0A1E2A7AF34000049840 /* WorkoutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutApp.swift; sourceTree = "<group>"; };
 		48CA0A202A7AF34000049840 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				48CA0A592A7AF82500049840 /* WorkoutTemplateDetailView.swift */,
 				48CA0A5B2A7AF83D00049840 /* WorkoutLogView.swift */,
 				48CA0A5D2A7AF85B00049840 /* WorkoutTemplateFormView.swift */,
+				485E19702A84825000957981 /* ExerciseLogTextFieldView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				48CA0A212A7AF34000049840 /* ContentView.swift in Sources */,
 				48CA0A4D2A7AF3AB00049840 /* DataController.swift in Sources */,
 				48CA0A5A2A7AF82500049840 /* WorkoutTemplateDetailView.swift in Sources */,
+				485E19712A84825000957981 /* ExerciseLogTextFieldView.swift in Sources */,
 				48CA0A5C2A7AF83D00049840 /* WorkoutLogView.swift in Sources */,
 				48CA0A1F2A7AF34000049840 /* WorkoutApp.swift in Sources */,
 				48CA0A5E2A7AF85B00049840 /* WorkoutTemplateFormView.swift in Sources */,
