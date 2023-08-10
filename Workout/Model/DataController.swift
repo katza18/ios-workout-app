@@ -35,6 +35,8 @@ class DataController: ObservableObject {
     
     func addWorkout(name: String, exercises: [Exercise], desc: String, template: Bool, context: NSManagedObjectContext) -> Workout {
         let workout = Workout(context: context)
+        if (!template) { workout.date = Date() }
+        
         workout.id = UUID()
         workout.name = name
         workout.desc = desc

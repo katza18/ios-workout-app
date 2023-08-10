@@ -12,17 +12,20 @@ struct WorkoutTemplateDetailView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @State var workout: Workout?
-    @State var exercises: [Exercise]?
     
     var body: some View {
         //Unpack exercises array, originally an NSSet
         let exercises = workout?.exercises?.array as? [Exercise]
-        
+            
         VStack {
             //Workout Name Header
             Text(workout?.name ?? "Error loading name.")
                 .font(.largeTitle)
             Spacer()
+            
+            if(!(workout?.template ?? true)) {
+                Text(workout?.date ?? Date(), format: .dateTime.day().month().year())
+            }
             
             //Workout description text
             Text(workout?.desc ?? "Sample description.")

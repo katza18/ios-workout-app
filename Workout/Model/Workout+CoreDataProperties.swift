@@ -21,6 +21,7 @@ extension Workout {
     @NSManaged public var name: String?
     @NSManaged public var template: Bool
     @NSManaged public var exercises: NSMutableOrderedSet?
+    @NSManaged public var date: Date?
 
 }
 
