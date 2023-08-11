@@ -30,7 +30,11 @@ class DataController: ObservableObject {
     func delete(context: NSManagedObjectContext, workout: Workout) {
         context.delete(workout)
         
-        try? context.save()
+        do {
+            try context.save()
+        } catch {
+            print("Could not delete data. Error: \(error)")
+        }
     }
     
     func addWorkout(name: String, exercises: [Exercise], desc: String, template: Bool, context: NSManagedObjectContext) -> Workout {

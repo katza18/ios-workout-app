@@ -9,48 +9,31 @@ import SwiftUI
 import CoreData
 
 struct MainMenuView: View {
-    @FetchRequest(
-        entity: Workout.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \Workout.name, ascending: true)],
-        predicate: NSPredicate(format: "template == %@", NSNumber(value: true))
-    ) var templateWorkouts: FetchedResults<Workout>
-    @FetchRequest(
-        entity: Workout.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \Workout.date, ascending: true)],
-        predicate: NSPredicate(format: "template == %@", NSNumber(value: false))
-    ) var loggedWorkouts: FetchedResults<Workout>
-    
-    @State private var showPopover: Bool = false
     @State private var showTemplates: Bool = true
     
     var body: some View {
-        //TODO: ADD BUTTONS FOR SELECTING LIST TO VIEW
         List {
             Section{
                 if showTemplates {
-                    WorkoutListView(workouts: templateWorkouts)
+                    WorkoutListView(template: true)
                 } else {
-                    WorkoutListView(workouts: loggedWorkouts)
+                    WorkoutListView(template: false)
                 }
             } header: {
                 VStack {
                     HStack {
-                        Text("Main Menu")
+                        Text("Workouts")
                             .font(.largeTitle)
                             .foregroundColor(.black)
                         Spacer()
-                        Button {
-                            showPopover = true
+                        NavigationLink {
+                            WorkoutTemplateFormView()
                         } label: {
                             Image(systemName: "plus")
                                 .foregroundColor(.white)
                                 .padding(4)
                                 .background(Color.blue)
                                 .clipShape(Circle())
-                            
-                        }
-                        .fullScreenCover(isPresented: $showPopover) {
-                            WorkoutTemplateFormView()
                         }
                     }
                     HStack {

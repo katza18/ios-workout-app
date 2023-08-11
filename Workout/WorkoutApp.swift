@@ -15,6 +15,7 @@ struct WorkoutApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
+                .preferredColorScheme(.light)
         }
     }
 }

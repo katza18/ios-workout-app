@@ -9,7 +9,14 @@ import SwiftUI
 
 struct WorkoutListView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
-    @State var workouts: FetchedResults<Workout>
+    @FetchRequest var workouts: FetchedResults<Workout>
+    
+    init(template: Bool) {
+            let predicate = NSPredicate(format: "template == %@", NSNumber(value: template))
+            _workouts = FetchRequest(entity: Workout.entity(),
+                                     sortDescriptors: [NSSortDescriptor(keyPath: \Workout.date, ascending: true)],
+                                     predicate: predicate)
+        }
     
     var body: some View {
         ForEach(workouts) { workout in
@@ -26,8 +33,7 @@ struct WorkoutListView: View {
     
     private func deleteWorkout(at indices: IndexSet) {
         for index in indices {
-            let workout = workouts[index]
-            DataController().delete(context: managedObjectContext, workout: workout)
+            DataController().delete(context: managedObjectContext, workout: workouts[index])
         }
     }
 }

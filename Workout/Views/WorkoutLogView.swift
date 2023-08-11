@@ -32,9 +32,9 @@ struct WorkoutLogView: View {
             }
             //List of exercises
             List {
-                ForEach($loggedExercises, id: \.id) { $exercise in
+                ForEach($loggedExercises) { $exercise in
                     Section {
-                        ForEach(exercise.weight.indices) { index in
+                        ForEach(exercise.weight.indices, id: \.self) { index in
                             let weightBinding = Binding(get: { exercise.weight[index] }, set: { newValue in
                                 exercise.weight[index] = newValue
                                 DataController().save(context: managedObjectContext)

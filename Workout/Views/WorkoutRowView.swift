@@ -16,11 +16,12 @@ struct WorkoutTemplateRowView: View {
                 .font(.title)
             if !workout.template {
                 Text(workout.date ?? Date(), format: .dateTime.day().month().year())
-            }
-            HStack{
-                Text(workout.desc ?? "Error loading description.")
-                    .font(.subheadline)
-                Spacer()
+            } else {
+                HStack{
+                    Text(workout.desc ?? "Error loading description.")
+                        .font(.subheadline)
+                    Spacer()
+                }
             }
         }.padding()
     }
