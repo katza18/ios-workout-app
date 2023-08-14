@@ -16,7 +16,7 @@ struct WorkoutListView: View {
             _workouts = FetchRequest(entity: Workout.entity(),
                                      sortDescriptors: [NSSortDescriptor(keyPath: \Workout.date, ascending: true)],
                                      predicate: predicate)
-        }
+    }
     
     var body: some View {
         ForEach(workouts) { workout in

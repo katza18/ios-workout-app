@@ -16,6 +16,8 @@ struct WorkoutLogView: View {
     @State var workout: Workout?
     @State var oldExercises: [Exercise]
     @State private var loggedExercises: [Exercise] = []
+    @State private var showingDoneAlert = false
+    @State private var showingCancelAlert = false
     
     var body: some View {
         VStack {
@@ -59,15 +61,34 @@ struct WorkoutLogView: View {
             HStack {
                 Spacer()
                 Button("Done") {
-                    //Create the new workout log, this will also save changes to the new exercises
-                    let _ = DataController().addWorkout(name: workout?.name ?? "", exercises: loggedExercises, desc: workout?.desc ?? "", template: false, context: managedObjectContext)
-                    
-                    //Dismiss the view
-                    dismiss()
+                    showingDoneAlert = true
+                }.alert(isPresented: $showingDoneAlert) {
+                    Alert(
+                        title: Text("Finish Workout?"),
+                        primaryButton: .default(
+                            Text("Yes"),
+                            action: {
+                                //Create the new workout log, this will also save changes to the new exercises
+                                let _ = DataController().addWorkout(name: workout?.name ?? "", exercises: loggedExercises, desc: workout?.desc ?? "", template: false, context: managedObjectContext)
+                                //Dismiss the view
+                                dismiss()
+                            }
+                        ),
+                        secondaryButton: .default( Text("No") )
+                    )
                 }
                 Spacer()
                 Button("Cancel") {
-                    dismiss()
+                    showingCancelAlert = true
+                }.alert(isPresented: $showingCancelAlert) {
+                    Alert(
+                        title: Text("Cancel Workout?"),
+                        primaryButton: .default(
+                            Text("Yes"),
+                            action: { dismiss() }
+                        ),
+                        secondaryButton: .default( Text("No") )
+                    )
                 }
                 Spacer()
             }
