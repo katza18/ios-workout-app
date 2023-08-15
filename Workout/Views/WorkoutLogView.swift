@@ -45,13 +45,20 @@ struct WorkoutLogView: View {
                                 exercise.loggedReps[index] = newValue
                                 DataController().save(context: managedObjectContext)
                             })
+                            let intensityBinding = Binding(get: { exercise.intensity[index] }, set: { newValue in
+                                exercise.intensity[index] = newValue
+                                DataController().save(context: managedObjectContext)
+                            })
                             
                             HStack {
                                 TextField("\(exercise.weight[index])", text: weightBinding)
                                 Text("lbs x")
                                 TextField("\(exercise.expectedReps)", text: repsBinding)
                                 Text("reps")
-                            }.listRowSeparator(.hidden)
+                                Text(" RPE")
+                                TextField("\(exercise.intensity[index])", text: intensityBinding)
+                            }
+                            .listRowSeparator(.hidden)
                         }
                     } header: {
                         Text(exercise.name)
@@ -61,41 +68,42 @@ struct WorkoutLogView: View {
             HStack {
                 Spacer()
                 Button("Done") {
+                    //hide keyboard and show alert
+                    UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.endEditing(true)
                     showingDoneAlert = true
-                }.alert(isPresented: $showingDoneAlert) {
-                    Alert(
-                        title: Text("Finish Workout?"),
-                        primaryButton: .default(
-                            Text("Yes"),
-                            action: {
-                                //Create the new workout log, this will also save changes to the new exercises
-                                let _ = DataController().addWorkout(name: workout?.name ?? "", exercises: loggedExercises, desc: workout?.desc ?? "", template: false, context: managedObjectContext)
-                                //Dismiss the view
-                                dismiss()
-                            }
-                        ),
-                        secondaryButton: .default( Text("No") )
-                    )
                 }
                 Spacer()
                 Button("Cancel") {
+                    //hide keyboard
+                    UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.endEditing(true)
                     showingCancelAlert = true
-                }.alert(isPresented: $showingCancelAlert) {
-                    Alert(
-                        title: Text("Cancel Workout?"),
-                        primaryButton: .default(
-                            Text("Yes"),
-                            action: { dismiss() }
-                        ),
-                        secondaryButton: .default( Text("No") )
-                    )
                 }
                 Spacer()
             }
             Spacer()
         }
+        .navigationBarBackButtonHidden(true)
         .navigationTitle(workout?.name ?? "Error loading name.")
-        .navigationBarBackButtonHidden()
+        .alert("Finish Workout", isPresented: $showingDoneAlert, actions: {
+            VStack {
+                Button("Done") {
+                    //Create the new workout log, this will also save changes to the new exercises
+                    let _ = DataController().addWorkout(name: workout?.name ?? "", exercises: loggedExercises, desc: workout?.desc ?? "", template: false, context: managedObjectContext)
+                    
+                    //Dismiss the view
+                    dismiss()
+                }
+                Button("Cancel", role: .cancel){}
+            }
+        }, message: { Text("Are you done working out?") })
+        .alert("Delete Workout", isPresented: $showingCancelAlert, actions: {
+            VStack {
+                Button("Delete", role: .destructive){
+                    dismiss()
+                }
+                Button("Cancel", role: .cancel){}
+            }
+        }, message: { Text("Do you want to delete this workout?") })
         .onAppear {
             //Create the logged exercises when the view renders
             loggedExercises = createLoggedExercises()

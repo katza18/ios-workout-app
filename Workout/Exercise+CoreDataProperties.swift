@@ -25,6 +25,7 @@ extension Exercise {
     @NSManaged public var weight: [String] //Weight stored for this exercise for each set
     @NSManaged public var template: Bool //Flag indicating whether this is the template for an exercise or a logged one
     @NSManaged public var workout: Workout? //The workout that this exercise belongs to
+    @NSManaged public var intensity: [String]
 
 }
 

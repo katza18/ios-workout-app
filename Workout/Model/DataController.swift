@@ -63,9 +63,11 @@ class DataController: ObservableObject {
             newArray = [String](repeating: "", count: Int(sets) ?? 1)
             exercise.loggedReps = newArray
             exercise.weight = newArray
+            exercise.intensity = newArray
         } else {
             exercise.loggedReps = [""]
             exercise.weight = [""]
+            exercise.intensity = [""]
         }
         
         exercise.name = name

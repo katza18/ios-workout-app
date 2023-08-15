@@ -43,6 +43,10 @@ struct WorkoutTemplateFormView: View {
                             HStack {
                                 TextField("Rest", text: $exercises[index].rest)
                             }
+                            HStack {
+                                TextField("Intensity", text:
+                                    $exercises[index].intensity[0])
+                            }
                         }.padding(.leading, 30)
                     }
                 }

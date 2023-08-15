@@ -50,7 +50,7 @@ struct WorkoutTemplateDetailView: View {
                             Text("\(exercise.name)")
                             Section {
                                 ForEach(exercise.weight.indices, id: \.self) { index in
-                                    Text("\(exercise.weight[index]) lbs x \(exercise.loggedReps[index]) reps")
+                                    Text("\(exercise.weight[index]) lbs x \(exercise.loggedReps[index]) reps RPE \(exercise.intensity[index])")
                                 }
                             }.padding(.leading, 30)
                         }
@@ -76,8 +76,8 @@ struct WorkoutTemplateDetailView: View {
                 Spacer()
             }
         }
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden()
+//        .navigationBarTitleDisplayMode(.inline)
+//        .navigationBarBackButtonHidden()
     }
 }
 

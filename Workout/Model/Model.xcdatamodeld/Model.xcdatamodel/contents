@@ -3,6 +3,7 @@
     <entity name="Exercise" representedClassName=".Exercise" syncable="YES">
         <attribute name="expectedReps" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="intensity" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName" customClassName=".[String]"/>
         <attribute name="loggedReps" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName" customClassName="[String]"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="rest" optional="YES" attributeType="String"/>
