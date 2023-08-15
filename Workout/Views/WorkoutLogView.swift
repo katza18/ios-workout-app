@@ -18,6 +18,7 @@ struct WorkoutLogView: View {
     @State private var loggedExercises: [Exercise] = []
     @State private var showingDoneAlert = false
     @State private var showingCancelAlert = false
+    @FocusState var isFocused: Bool
     
     var body: some View {
         VStack {
@@ -58,6 +59,7 @@ struct WorkoutLogView: View {
                                 Text(" RPE")
                                 TextField("\(exercise.intensity[index])", text: intensityBinding)
                             }
+                            .focused($isFocused)
                             .listRowSeparator(.hidden)
                         }
                     } header: {
@@ -69,13 +71,12 @@ struct WorkoutLogView: View {
                 Spacer()
                 Button("Done") {
                     //hide keyboard and show alert
-                    UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.endEditing(true)
+                    isFocused = false
                     showingDoneAlert = true
                 }
                 Spacer()
                 Button("Cancel") {
-                    //hide keyboard
-                    UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.endEditing(true)
+                    isFocused = false
                     showingCancelAlert = true
                 }
                 Spacer()

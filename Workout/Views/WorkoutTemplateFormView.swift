@@ -30,6 +30,11 @@ struct WorkoutTemplateFormView: View {
                 }
                 Section(header: Text("Exercises"), footer: addExerciseButton) {
                     ForEach(exercises.indices, id: \.self) { index in
+                        let intensityBinding = Binding(get: { exercises[index].intensity[0] }, set: { newValue in
+                            exercises[index].intensity[0] = newValue
+                            DataController().save(context: managedObjectContext)
+                        })
+                        
                         Group {
                             TextField("Exercise Name", text: $exercises[index].name)
                         }
@@ -44,8 +49,7 @@ struct WorkoutTemplateFormView: View {
                                 TextField("Rest", text: $exercises[index].rest)
                             }
                             HStack {
-                                TextField("Intensity", text:
-                                    $exercises[index].intensity[0])
+                                TextField("Intensity", text: intensityBinding)
                             }
                         }.padding(.leading, 30)
                     }
