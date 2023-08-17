@@ -8,6 +8,7 @@
 
 import SwiftUI
 import CoreData
+import Foundation
 
 struct WorkoutLogView: View {
     @Environment(\.dismiss) private var dismiss
@@ -18,21 +19,14 @@ struct WorkoutLogView: View {
     @State private var loggedExercises: [Exercise] = []
     @State private var showingDoneAlert = false
     @State private var showingCancelAlert = false
+    @StateObject private var timer = WorkoutTimer()
+    @StateObject private var stopwatch = WorkoutTimer()
     @FocusState var isFocused: Bool
     
     var body: some View {
         VStack {
-            Text("Timer: 0:00")
+            Text("Timer: \(timer.formattedTime)")
                 .font(.subheadline)
-            HStack {
-                Text("Stop Watch: 0:00")
-                Button("Start") {
-                    
-                }
-                Button("Stop") {
-                    
-                }
-            }
             //List of exercises
             List {
                 ForEach(loggedExercises.indices, id: \.self) { exerciseIndex in
@@ -69,6 +63,23 @@ struct WorkoutLogView: View {
                 }
             }
             HStack {
+                Text("Stop Watch: \(stopwatch.formattedTime)")
+                if stopwatch.isRunning {
+                    Button("Stop") {
+                        stopwatch.pause()
+                    }
+                } else {
+                    Button("Start") {
+                        stopwatch.start()
+                    }
+                    Button("Reset") {
+                        stopwatch.stop()
+                    }
+                }
+            }
+            Spacer()
+            Spacer()
+            HStack {
                 Spacer()
                 Button("Done") {
                     //hide keyboard and show alert
@@ -92,6 +103,10 @@ struct WorkoutLogView: View {
                     //Create the new workout log, this will also save changes to the new exercises
                     let _ = DataController().addWorkout(name: workout?.name ?? "", exercises: loggedExercises, desc: workout?.desc ?? "", template: false, context: managedObjectContext)
                     
+                    //Stop timer
+                    timer.stop()
+                    stopwatch.stop()
+                    
                     //Dismiss the view
                     dismiss()
                 }
@@ -101,6 +116,8 @@ struct WorkoutLogView: View {
         .alert("Delete Workout", isPresented: $showingCancelAlert, actions: {
             VStack {
                 Button("Delete", role: .destructive){
+                    timer.stop()
+                    stopwatch.stop()
                     dismiss()
                 }
                 Button("Cancel", role: .cancel){}
@@ -109,6 +126,9 @@ struct WorkoutLogView: View {
         .onAppear {
             //Create the logged exercises when the view renders
             loggedExercises = createLoggedExercises()
+            
+            //Start workout timer
+            timer.start()
         }
     }
     

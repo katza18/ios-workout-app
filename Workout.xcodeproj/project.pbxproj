@@ -23,6 +23,7 @@
 		48CA0A5C2A7AF83D00049840 /* WorkoutLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CA0A5B2A7AF83D00049840 /* WorkoutLogView.swift */; };
 		48CA0A5E2A7AF85B00049840 /* WorkoutTemplateFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CA0A5D2A7AF85B00049840 /* WorkoutTemplateFormView.swift */; };
 		48CA0A612A7B0D3800049840 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 48CA0A5F2A7B0D3800049840 /* Model.xcdatamodeld */; };
+		48D0D64B2A8ED70400981C1A /* WorkoutTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D0D64A2A8ED70400981C1A /* WorkoutTimer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		48CA0A5B2A7AF83D00049840 /* WorkoutLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutLogView.swift; sourceTree = "<group>"; };
 		48CA0A5D2A7AF85B00049840 /* WorkoutTemplateFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplateFormView.swift; sourceTree = "<group>"; };
 		48CA0A602A7B0D3800049840 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		48D0D64A2A8ED70400981C1A /* WorkoutTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTimer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 				48CA0A4A2A7AF36200049840 /* Model */,
 				48CA0A482A7AF35200049840 /* Views */,
 				48CA0A1E2A7AF34000049840 /* WorkoutApp.swift */,
+				48D0D64A2A8ED70400981C1A /* WorkoutTimer.swift */,
 			);
 			path = Workout;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 				4829E0682A805DA4002014B0 /* Exercise+CoreDataClass.swift in Sources */,
 				48CA0A582A7AF7FE00049840 /* WorkoutRowView.swift in Sources */,
 				48CA0A212A7AF34000049840 /* ContentView.swift in Sources */,
+				48D0D64B2A8ED70400981C1A /* WorkoutTimer.swift in Sources */,
 				48CA0A4D2A7AF3AB00049840 /* DataController.swift in Sources */,
 				48CA0A5A2A7AF82500049840 /* WorkoutDetailView.swift in Sources */,
 				48CA0A5C2A7AF83D00049840 /* WorkoutLogView.swift in Sources */,
