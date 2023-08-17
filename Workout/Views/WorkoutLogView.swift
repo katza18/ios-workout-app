@@ -35,35 +35,36 @@ struct WorkoutLogView: View {
             }
             //List of exercises
             List {
-                ForEach($loggedExercises) { $exercise in
+                ForEach(loggedExercises.indices, id: \.self) { exerciseIndex in
                     Section {
-                        ForEach(exercise.weight.indices, id: \.self) { index in
-                            let weightBinding = Binding(get: { exercise.weight[index] }, set: { newValue in
-                                exercise.weight[index] = newValue
+                        ForEach(loggedExercises[exerciseIndex].weight.indices, id: \.self) { index in
+                            let weightBinding = Binding(get: { loggedExercises[exerciseIndex].weight[index] }, set: { newValue in
+                                loggedExercises[exerciseIndex].weight[index] = newValue
+                                oldExercises[exerciseIndex].weight[0] = newValue
                                 DataController().save(context: managedObjectContext)
                             })
-                            let repsBinding = Binding(get: { exercise.loggedReps[index] }, set: { newValue in
-                                exercise.loggedReps[index] = newValue
+                            let repsBinding = Binding(get: { loggedExercises[exerciseIndex].loggedReps[index] }, set: { newValue in
+                                loggedExercises[exerciseIndex].loggedReps[index] = newValue
                                 DataController().save(context: managedObjectContext)
                             })
-                            let intensityBinding = Binding(get: { exercise.intensity[index] }, set: { newValue in
-                                exercise.intensity[index] = newValue
+                            let intensityBinding = Binding(get: { loggedExercises[exerciseIndex].intensity[index] }, set: { newValue in
+                                loggedExercises[exerciseIndex].intensity[index] = newValue
                                 DataController().save(context: managedObjectContext)
                             })
                             
                             HStack {
-                                TextField("\(exercise.weight[index])", text: weightBinding)
+                                TextField("\(oldExercises[exerciseIndex].weight[0])", text: weightBinding)
                                 Text("lbs x")
-                                TextField("\(exercise.expectedReps)", text: repsBinding)
+                                TextField("\(loggedExercises[exerciseIndex].expectedReps)", text: repsBinding)
                                 Text("reps")
                                 Text(" RPE")
-                                TextField("\(exercise.intensity[index])", text: intensityBinding)
+                                TextField("\(loggedExercises[exerciseIndex].intensity[index])", text: intensityBinding)
                             }
                             .focused($isFocused)
                             .listRowSeparator(.hidden)
                         }
                     } header: {
-                        Text(exercise.name)
+                        Text(loggedExercises[exerciseIndex].name)
                     } //TODO: Add footer for plus/minus buttons
                 }
             }
